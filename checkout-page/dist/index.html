@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eevent Hub - Payment Methods</title>
+  <style>
+    /* التنسيق العام */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* خلفية النجوم والقمر */
+    .night-sky {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    /* القمر */
+    .moon {
+      position: absolute;
+      top: 20%;
+      right: 10%; /* القمر على الجانب الأيمن */
+      width: 100px;
+      height: 100px;
+      background: #f0f0f0;
+      border-radius: 50%;
+      box-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
+      animation: glowMoon 3s infinite ease-in-out;
+    }
+
+    @keyframes glowMoon {
+      0%, 100% {
+        box-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
+      }
+      50% {
+        box-shadow: 0 0 80px rgba(255, 255, 255, 1);
+      }
+    }
+
+    /* النجوم */
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+      animation: twinkle 3s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+    }
+
+    /* التصميم الرئيسي */
+    .mainscreen {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* شعار Eevent Hub */
+    .logo {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 30px;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      animation: slideIn 1s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .method {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .method::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .method:hover::before {
+      left: 100%;
+    }
+
+    .method:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .method a {
+      text-decoration: none;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .method img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 15px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      transition: transform 0.3s ease;
+      /* إيقاف حركة الصور */
+      animation: none;
+    }
+
+    .method:hover img {
+      transform: scale(1.1);
+    }
+
+    .method span {
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="night-sky">
+    <div class="moon"></div>
+    <div class="stars"></div>
+  </div>
+  <div class="mainscreen">
+    <div class="logo">Eevent Hub</div>
+    <h1>Pay With</h1>
+    <div class="container">
+      <div class="method">
+        <a href="vodafone-page.html">
+          <img src="a231a8127274097.Y3JvcCwxMzgyLDEwODEsMjcwLDA.jpg" alt="Vodafone Cash">
+          <span>Vodafone Cash</span>
+        </a>
+      </div>
+      <div class="method">
+        <a href="orange-page.html">
+          <img src="download.png" alt="Orange Cash">
+          <span>Etisalat Cash</span>
+        </a>
+      </div>
+      <div class="method">
+        <a href="etisalat-page.html">
+          <img src="download.jpeg" alt="Etisalat Cash">
+          <span>We Cash</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // إنشاء النجوم بشكل عشوائي
+    const starsContainer = document.querySelector('.stars');
+    const numberOfStars = 200; // عدد النجوم
+
+    for (let i = 0; i < numberOfStars; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.animationDelay = `${Math.random() * 3}s`; // تأخير عشوائي للأنيميشن
+      starsContainer.appendChild(star);
+    }
+  </script>
+</body>
+</html>

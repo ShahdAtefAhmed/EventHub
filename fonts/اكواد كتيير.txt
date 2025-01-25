@@ -1,0 +1,236 @@
+# Median Filter
+
+# import cv2
+# image = cv2.imread('Median_image.png')
+# median_filtered_image = cv2.medianBlur(image, 5)
+# cv2.imshow('Original Image', image)
+# cv2.imshow('Median Filtered Image', median_filtered_image)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+# import numpy as np
+# from networkx.algorithms.distance_measures import radius
+# from scipy.special import dtype
+# import cv2
+
+#//////////////////////////////////////////////////////////////////////////////////////
+# Brightness and Contrast
+
+# import cv2
+# brightness = 60
+# contrast = 50
+# image = cv2.imread('AboTreka.jpg')
+# cv2.imshow("Original Image",image)
+# kernel_size = (5, 5)
+# def adjust_brightness_contrast(image, brightness, contrast):
+#     return cv2.convertScaleAbs(image, alpha=1 + contrast / 127.0, beta=brightness)
+# denoised_image = cv2.GaussianBlur(image, kernel_size, sigmaX=0)
+# adjusted_image = adjust_brightness_contrast(denoised_image, brightness, contrast)
+# cv2.imshow('Adjusted Image', adjusted_image)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+
+#/////////////////////////////////////////////////////////////////////////////////////////////
+
+# Transation Image
+
+# import cv2
+# import numpy as np
+# image =  cv2.imread('AboTreka.jpg')
+# rows,cols = image.shape[:2]
+# t_x = 50
+# t_y = 50
+# translation_matrix = np.float32([[1,0,t_x],[0,1,t_y]])
+# translation_image = cv2.warpAffine(image,translation_matrix,(cols,rows))
+# cv2.imshow("original Image",image)
+# cv2.imshow("Translated Image",translation_image)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+# cv2.imwrite('translated_image.jpg', translation_image)
+
+#///////////////////////////////////////////////////////////////////////////
+
+# Scaling Image
+
+# import cv2
+# image = cv2.imread('AboTreka.jpg')
+# scale_x = 1.5
+# scale_y = 1.5
+# scaled_image = cv2.resize(image, None, fx=scale_x, fy=scale_y, interpolation=cv2.INTER_LINEAR)
+# cv2.imshow('Original Image', image)
+# cv2.imshow('Scaled Image', scaled_image)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+# cv2.imwrite('scaled_image.jpg', scaled_image)
+
+#///////////////////////////////////////////////////////////////////////////
+# Convert from 8-bit To 24-bit
+
+# import cv2
+# from PIL.ImageOps import grayscale
+#
+# grayscale_image = cv2.imread('AboTreka.jpg',cv2.IMREAD_GRAYSCALE)
+# rgb_image = cv2.cvtColor(grayscale_image,cv2.COLOR_GRAY2RGB)
+# rgb_image[:,:,0]=0
+# rgb_image[:,:,1]=0
+# bgr_image_for_display = cv2.cvtColor(rgb_image,cv2.COLOR_RGB2BGR)
+# cv2.imshow('8-bit Grayscale Image',grayscale_image)
+# cv2.imshow('Blue-Tinted 24-bit RGB Image',bgr_image_for_display)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+#////////////////////////////////////////////////////////////////////////////////
+# Convert from 24-bit To 8-bit
+
+# import cv2
+# from PIL.ImageOps import grayscale
+# image = cv2.imread('AboTreka.jpg')
+# grayscale_image = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+# cv2.imshow('Original 24-bit RGB Image',image)
+# cv2.imshow('Converted 8-bit Grayscale Image',grayscale_image)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+#//////////////////////////////////////////////////////////////////////////////////////////////
+#HSV
+
+# import cv2
+# import numpy as np
+# image_bgr = cv2.imread("AboTreka.jpg")
+# image_hsv = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2HSV)
+# cv2.imshow('Original Image', image_bgr)
+# hsv=image_hsv[:, :, 0]
+# hsv= (hsv+ 120) % 180
+# image_hsv[:, :, 0]=hsv
+# saturation = image_hsv[:, :, 1]
+# saturation = np.clip(saturation * 2, 0, 255)
+# image_hsv[:, :, 1]=saturation
+# image_bgr_modified = cv2.cvtColor(image_hsv, cv2.COLOR_HSV2BGR)
+# cv2.imshow('Modified Image', image_bgr_modified)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+
+#/////////////////////////////////////////////////////////////////////////////////////////
+#TV
+
+
+
+
+
+
+
+
+
+
+#////////////////////////////////////////////////////////////////////
+# import cv2
+# import scipy
+# import numpy as np
+# image = np.ones((500,500,3),dtype=np.uint8)*225
+# start_point = (50,100)
+# end_point = (300,100)
+# color = (0,0,225)
+# thickness = 5
+# cv2.lines(image,start_point,end_point,color, thickness)
+# cv2.imshow("lines",image)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+
+# #////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+# import cv2
+# import numpy as np
+# image = np.ones((500,500),dtype = np.uint8)*225
+# center_coordint = (250,250)
+# radius = 100
+# color = (0,0,225)
+# thickness = 5
+# cv2.circle(image,center_coordint,radius,color,thickness)
+# end_point = (int(center_coordint[0]+radius),center_coordint[1])
+# color_line = (0,0,225)
+# thickness_line = 3
+# cv2.line(image,center_coordint,end_point,color_line,thickness_line)
+# cv2.imshow("Circl",image)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+
+#//////////////////////////////////////////////////////////////////////////////////////////
+#Clipping Simulation (Line Clipping - Cohen-Sutherland Example):
+# import numpy as np
+# import cv2
+# img = np.ones((400, 400, 3), dtype=np.uint8) * 255
+# x_min, y_min = 100, 100
+# x_max, y_max = 300, 300
+#
+# x1, y1 = 100, 300
+# x2, y2 = 300, 100
+# cv2.line(img, (x1, y1), (x2, y2), (255, 0, 0), 2)
+#
+# x1, y1 = 100, 100
+# x2, y2 = 300, 300
+# cv2.line(img, (x1, y1), (x2, y2), (0, 0, 255), 2)
+# cv2.rectangle(img, (x_min, y_min), (x_max, y_max), (0, 255, 0), 2)
+#
+# cv2.imshow("Clipping Simulation", img)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+
+#////////////////////////////////////////////////////////////////////////////
+
+#Clipping Simulation (Line Clipping - Cohen-Sutherland Example):
+
+# import cv2
+# import numpy as np
+# img = np.ones((400, 400, 3), dtype=np.uint8) * 255
+# cv2.rectangle(img,(100,100),(300,300),(0,225,0),2)
+# cv2.line(img,(50,50),(350,350),(225,0,0),2)
+# cv2.line(img,(150,50),(150,350),(0,0,225),2)
+# cv2.imshow("Clipping Simulation", img)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+#//////////////////////////////////////////////////////////////////////////
+
+#Filling a Region Using
+
+# import numpy as np
+# import cv2
+# img = np.ones((400, 400, 3), dtype=np.uint8) * 255
+# cv2.rectangle(img,(50,50),(250,250),(0,0,0),2)
+# seed_point = (100,100)
+# fill_color = (0,225,0)
+# mask = np.zeros((402,402),dtype=np.uint8)
+# cv2.floodFill(img,mask,seed_point,fill_color)
+# cv2.imshow("Flood Fill",img)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+#///////////////////////////////////////////////
+
+#Rotation using
+
+# import cv2
+# import numpy as np
+# from PIL.ImageOps import scale
+# from networkx.algorithms.distance_measures import center
+# from numpy.ma.core import shape
+# img = np.ones((300, 300, 3), dtype=np.uint8) * 255
+# cv2.rectangle(img,(100,100),(200,200),(0,225,0),-1)
+# center = (img.shape[1]//2,img.shape[0]//2)
+# angle = 45
+# scale = 1.0
+# roteted_matrix = cv2.getRotationMatrix2D(center,angle,scale)
+# rotated_img = cv2.warpAffine(img,roteted_matrix,(img.shape[1],img.shape[0]))
+# cv2.imshow("Original Image",img)
+# cv2.imshow("Rotated Image",rotated_img)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+
+#/////////////////////////////////////////////////
+
+#Scaling using
+
+# import cv2
+# import numpy as np
+# img = np.ones((300, 300, 3), dtype=np.uint8) * 255
+# cv2.rectangle(img,(100,100),(200,200),(0,225,0),-1)
+# scaled_img = cv2.resize(img,None,fx=1.5,fy=1.5,interpolation=cv2.INTER_LINEAR)
+# cv2.imshow("Original Image",img)
+# cv2.imshow("Scaled Image",scaled_img)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+#//////////////////////////////////////////
