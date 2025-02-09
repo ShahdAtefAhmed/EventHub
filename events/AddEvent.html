@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Event</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            direction: ltr;
+            background-image: url('bg1.png'); /* Background Image */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 500px;
+            background: rgba(0, 0, 0, 0.3); /* Slight transparency */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h2 {
+            color: #ffffff;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 90%;
+            margin: 10px 0;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: rgba(255, 255, 255, 0.85); /* Slight transparency for inputs */
+        }
+
+        input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        button {
+            width: 95%;
+            margin: 10px 0;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a button {
+            background-color: #28a745;
+        }
+
+        a button:hover {
+            background-color: #218838;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            input, button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Add New Event</h2>
+        <input type="text" id="eventName" placeholder="Event Name">
+        <input type="date" id="eventDate">
+        <input type="time" id="eventTime">
+        <input type="text" id="eventLocation" placeholder="Location">
+        <input type="url" id="eventImage" placeholder="Event Image URL">
+        <input type="url" id="eventLink" placeholder="Registration Link">
+        <button onclick="saveEvent()">Add Event</button>
+        <a href="events.html"><button>View Events</button></a>
+    </div>
+
+    <script>
+        function saveEvent() {
+            let name = document.getElementById("eventName").value;
+            let date = document.getElementById("eventDate").value;
+            let time = document.getElementById("eventTime").value;
+            let location = document.getElementById("eventLocation").value;
+            let image = document.getElementById("eventImage").value;
+            let link = document.getElementById("eventLink").value;
+
+            if (!name || !date || !time || !location || !image || !link) {
+                alert("Please fill out all fields!");
+                return;
+            }
+
+            let events = JSON.parse(localStorage.getItem("events")) || [];
+            events.push({ name, date, time, location, image, link });
+            localStorage.setItem("events", JSON.stringify(events));
+
+            alert("Event successfully added!");
+            document.getElementById("eventName").value = "";
+            document.getElementById("eventDate").value = "";
+            document.getElementById("eventTime").value = "";
+            document.getElementById("eventLocation").value = "";
+            document.getElementById("eventImage").value = "";
+            document.getElementById("eventLink").value = "";
+        }
+    </script>
+</body>
+</html>
